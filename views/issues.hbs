@@ -1,10 +1,16 @@
 <header class="bar bar-nav">
 	<h1 class="title">{{title}}</h1>
 </header>
-<div id="issues>"
-<ul>
+<ul class="table-view">
 {{#each data}}
-<li><a href="/issue/{{this.id}}">{{{this.description}}}</a>[+][-]</li>
+	<li class="table-view-cell media">
+		<a class="navigate-right" href="/issue/{{this.id}}">
+			{{{this.description}}}
+			<button class="btn btn-positive">+</button>
+			<button class="btn btn-negative">-</button>
+			<span class="badge">{{this.count}}</span>
+		</a>
+	</li>
 {{/each}}
 </ul>
 </div>

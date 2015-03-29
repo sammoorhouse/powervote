@@ -5,8 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
 var issues = require('./routes/issues');
 
 var app = express();
@@ -28,9 +26,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 /* GET home page. */
 app.get('/', function(req, res, next) {
 	issues.getAll(function(items){
-		res.render('index', { title: 'issues', data: items })
+		res.render('issues', { title: 'issues', data: items })
 	});
 });
+app.get('/blast', issues.blast);
 app.get('/issues', issues.findAll);
 app.get('/issue/:id', issues.findById);
 
