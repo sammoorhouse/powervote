@@ -1,0 +1,10 @@
+<header class="bar bar-nav">
+	<h1 class="title">{{title}}</h1>
+</header>
+<div id="issues>"
+<ul>
+{{#each data}}
+<li><a href="/issue/{{this.id}}">{{{this.description}}}</a>[+][-]</li>
+{{/each}}
+</ul>
+</div>
