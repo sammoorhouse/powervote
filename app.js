@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 /* GET home page. */
 app.get('/', function(req, res, next) {
 	issues.getAll(function(items){
-		res.render('issues', { title: 'issues', data: items })
+		res.render('issues', { title: 'Issues', data: items })
 	});
 });
 app.get('/blast', issues.blast);

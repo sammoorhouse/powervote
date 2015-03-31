@@ -1,14 +1,13 @@
 <header class="bar bar-nav">
 	<h1 class="title">{{title}}</h1>
 </header>
+<div class="content">
 <ul class="table-view">
 {{#each data}}
 	<li class="table-view-cell media">
-		<a class="navigate-right" href="/issue/{{this.id}}">
-			{{{this.description}}}
-			<button class="btn btn-positive">+</button>
-			<button class="btn btn-negative">-</button>
-			<span class="badge">{{this.count}}</span>
+		<a class="navigate-right" href="/issue/{{id}}">
+			{{{description}}}
+			<span class="badge">{{count}}</span>
 		</a>
 	</li>
 {{/each}}
