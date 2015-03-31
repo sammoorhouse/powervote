@@ -70,10 +70,26 @@ exports.getAll = function(callback){
 	console.log('getAll');
     db.collection('issues', function(err, collection) {
         collection.find().toArray(function(err, items) {
-            //var descriptions = items.map(function(item){return item.description} );
 			callback(items);
         });
     });
+};
+
+exports.userVotes = function(userId, callback){
+	console.log('retrieving votes for user ' + userId);
+	db.collection('votes', function(err, collection){
+		collection.find({'_id':new BSON.ObjectID(userId)}, function(err, items){
+			callback(items);
+		});
+	});
+};
+
+exports.addVote = function(userId, issueId, callback){
+	console.log('adding vote for user ' + userId + ' and issue ' + issueId);
+	var vote = '{id: ' + issueId + ', user: ' + userId' + voted: true}';
+	db.collection('votes', function(err, collection){
+		collection.upsert(vote)
+	})
 }
 
 /*--------------------------------------------------------------------------------------------------------------------*/

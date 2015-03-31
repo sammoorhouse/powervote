@@ -5,10 +5,13 @@
 <ul class="table-view">
 {{#each data}}
 	<li class="table-view-cell media">
-		<a class="navigate-right" href="/issue/{{id}}">
-			{{{description}}}
-			<span class="badge">{{count}}</span>
-		</a>
+		{{#if voted}}
+			<span class="media-object pull-left icon icon-star"></span>
+		{{else}}
+			<span class="media-object pull-left icon icon-star"></span>
+		{{/if}}
+		<span class="capitalize">{{{description}}}</span>
+		<span class="media-body badge">{{count}}</span>
 	</li>
 {{/each}}
 </ul>
