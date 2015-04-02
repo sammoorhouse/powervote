@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 io.on('connection', function(socket){
 	socket.on('vote', function(msg){
-		console.log('voted ' + msg);
+		console.log('voted ' + msg.score);
 	});
 });
 
