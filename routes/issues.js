@@ -165,6 +165,9 @@ var populateIssues = function() {
 		{id: "6710",totalScore: "12", totalVoterCount: "320",description: "<b>culling badgers</b> to tackle bovine tuberculosis"},
 		{id: "6711",totalScore: "12", totalVoterCount: "320",description: "an annual tax on the value of expensive homes (popularly known as a <b>mansion tax</b>)"}
     ];
+	
+	console.log('issues db: ' + db);
+	console.log('data: ' + JSON.stringify(issues, null, '\t'));
 
     db.collection('issues', function(err, collection) {
         collection.insert(issues, {safe:true}, function(err, result) {});
