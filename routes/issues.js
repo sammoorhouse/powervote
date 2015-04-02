@@ -96,7 +96,6 @@ exports.addVote = function(userId, issueId, callback){
 // Populate database with sample data -- Only used once: the first time the application is started.
 // You'd typically not find this code in a real-life app, since the database would already exist.
 var populateIssues = function() {
-	console.log('BLASTING');
     var issues = [
 		{id: "363",totalScore: "12", totalVoterCount: "320",description: "introducing <b>foundation hospitals</b>"},
 		{id: "810",totalScore: "12", totalVoterCount: "320",description: "greater <b>regulation of gambling</b>"},
@@ -167,10 +166,13 @@ var populateIssues = function() {
     ];
 	
 	console.log('issues db: ' + db);
-	console.log('issues db JSON: ' + JSON.stringify(db));
 
     db.collection('issues', function(err, collection) {
-        collection.insert(issues, {safe:true}, function(err, result) {});
+        collection.insert(issues, {safe:true}, function(err, result) {
+        	if(err){
+        		console.log("ERROR: " + err);
+        	}
+        });
     });
 };
 
@@ -276,10 +278,9 @@ var populateSets = function() {
 ];
 
     db.collection('sets', function(err, collection) {
-        collection.insert(sets, {safe:true}, function(err, result) {});
+        collection.insert(sets, {safe:true}, function(err, result) {
+        	if(err){
+        		console.log("ERROR: " + err);
+        	}});
     });
-	
-	
-	
-
 };
