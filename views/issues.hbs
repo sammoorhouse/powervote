@@ -1,18 +1,34 @@
 <header class="bar bar-nav">
 	<h1 class="title">{{title}}</h1>
+	<a href="#share" class="icon icon-share"></a>
 </header>
 <div class="content">
+	<ul class="table-view">
+		{{#each data}}
+			<li class="table-view-cell media">
+				<a class="navigate-right" href="/issue/{{id}}" data-transition="slide-in">
+					<span class="capitalize">{{{description}}}</span>
+					{{#if voted}}
+						<span class="media-body badge">{{totalScore}} voted</span>
+					{{else}}
+						<span class="media-body badge">{{totalScore}} not voted</span>
+					{{/if}}
+				</a>
+			</li>
+		{{/each}}
+	</ul>
+</div>
+
+<div id="share" class="popover">
+<header class="bar bar-nav">
+  <h1 class="title">Share this</h1>
+</header>
 <ul class="table-view">
-{{#each data}}
-	<li class="table-view-cell media">
-		{{#if voted}}
-			<span class="media-object pull-left icon icon-star"></span>
-		{{else}}
-			<span class="media-object pull-left icon icon-star"></span>
-		{{/if}}
-		<span class="capitalize">{{{description}}}</span>
-		<span class="media-body badge">{{count}}</span>
-	</li>
-{{/each}}
+  <li class="table-view-cell media"><span class="media-object pull-left fa fa-facebook"></span><div class="media-body">Facebook</div></li>
+  <li class="table-view-cell media"><span class="media-object pull-left fa fa-google-plus"></span><div class="media-body">Google+</div></li>
+  <li class="table-view-cell media"><span class="media-object pull-left fa fa-twitter"></span><div class="media-body">Tweet</div></li>
+  <li class="table-view-cell media"><span class="media-object pull-left fa fa-pinterest"></span><div class="media-body">Pinterest</div></li>
+  <li class="table-view-cell media"><span class="media-object pull-left fa fa-reddit"></span><div class="media-body">Reddit</div></li>
+  <li class="table-view-cell media"><span class="media-object pull-left fa fa-share"></span><div class="media-body">Email</div></li>
 </ul>
 </div>

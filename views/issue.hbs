@@ -1,10 +1,28 @@
 <header class="bar bar-nav">
-	<h1 class="title">{{title}}</h1>
+	<a class="icon icon-left-nav pull-left" href="/" data-transition="slide-out"></a>
+	<h1 class="title capitalize">{{{data.description}}}</h1>
 </header>
-<div id="issues>"
-<ul>
-{{#each data}}
-<li><a href="/issue/{{this.id}}">{{{this.description}}}</a>[+][-]</li>
-{{/each}}
-</ul>
+<div class="content">
+	<div class="content-padded">
+		<p>This issue has been voted on by <strong>{{data.totalVoterCount}}</strong> people</p>
+		<p>Its current score is <strong>{{data.totalScore}}!</strong> (what does this mean?)</p>
+		<h2>I am:</h2>
+		<div class="card">
+			<ul class="table-view">
+				<li class="table-view-cell vote" id="vote+3">Very strongly for<span class="badge">+3</span></li>
+				<li class="table-view-cell vote" id="vote+2">Strongly for <span class="media-object pull-right icon icon-check"></span><span class="badge">+2</span></li>
+				<li class="table-view-cell vote" id="vote+1">Moderately for <span class="media-object pull-right icon"></span><span class="badge">+1</span></li>
+				<li class="table-view-cell vote" id="vote0">Neutral <span class="media-object pull-right icon"></span><span class="badge">0</span></li>
+				<li class="table-view-cell vote" id="vote-1">Moderately against <span class="media-object pull-right icon"></span><span class="badge">-1</span></li>
+				<li class="table-view-cell vote" id="vote-2">Strongly against <span class="media-object pull-right icon"></span><span class="badge">-2</span></li>
+				<li class="table-view-cell vote" id="vote-3">Very strongly against <span class="media-object pull-right icon"></span><span class="badge">-3</span></li>
+	</div>
 </div>
+	<script>
+  
+  $('li.vote').click(function(){
+    var payload = {issue: {{data.id}}, score:$(this).attr('id')};
+	console.log(payload);
+  	socket.emit('vote', payload);
+  });
+	</script>
