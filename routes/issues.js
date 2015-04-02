@@ -9,17 +9,23 @@ db = new Db('heroku_app35468529', server, {safe: true});
 
 db.open(function(err, db) {
     if(!err) {
-        console.log("Connected to 'issuesdb' database");
+        console.log("Connected to 'issues' database");
         db.collection('issues', {safe:true}, function(err, collection) {
             if (err) {
                 console.log("The 'issues' collection doesn't exist. Creating it with sample data...");
                 populateIssues();
             }
+			else{
+				console.log("issues collection: " + collection);
+			}
         });
 		db.collection('sets', {safe:true}, function(err, collection){
 			if(err){
 				console.log("The 'sets' collection doesn't exist. Creating with sample data...");
 				populateSets();
+			}
+			else{
+				console.log("sets collection: " + collection);
 			}
 		})
     }
