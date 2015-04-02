@@ -167,7 +167,7 @@ var populateIssues = function() {
     ];
 	
 	console.log('issues db: ' + db);
-	console.log('data: ' + JSON.stringify(issues, null, '\t'));
+	console.log('issues db JSON: ' + JSON.stringify(db));
 
     db.collection('issues', function(err, collection) {
         collection.insert(issues, {safe:true}, function(err, result) {});
