@@ -16,7 +16,7 @@ db.open(function(err, db) {
                 populateIssues();
             }
 			else{
-				console.log("issues collection: " + collection);
+				console.log("issues collection: " +  + JSON.stringify(collection, null, '/t'));
 			}
         });
 		db.collection('sets', {safe:true}, function(err, collection){
@@ -25,7 +25,7 @@ db.open(function(err, db) {
 				populateSets();
 			}
 			else{
-				console.log("sets collection: " + collection);
+				console.log("sets collection: " + JSON.stringify(collection, null, '/t'));
 			}
 		})
     }
