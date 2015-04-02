@@ -9,25 +9,36 @@ db = new Db('heroku_app35468529', server, {safe: true});
 
 db.open(function(err, db) {
     if(!err) {
-        console.log("Connected to 'issues' database");
-        db.collection('issues', {safe:true}, function(err, collection) {
-            if (err) {
-                console.log("The 'issues' collection doesn't exist. Creating it with sample data...");
-                populateIssues();
+		var username = process.env.MONGO_USER || "";
+		var password = process.env.MONGO_PASS || "";
+		console.log('logging in with user: ' + username + ' and password ' + password);
+		db.authenticate(username, password, function(err, result){
+			if(err){
+                console.log("Problem authenticating against db server: " + err);
             }
 			else{
-				console.log("issues collection: " +  + JSON.stringify(collection, null, '/t'));
+		        console.log("Connected to 'issues' database");
+		        db.collection('issues', {safe:true}, function(err, collection) {
+		            if (err) {
+		                console.log("The 'issues' collection doesn't exist. Creating it with sample data...");
+		                populateIssues();
+		            }
+					else{
+						console.log("issues collection: " +  + JSON.stringify(collection, null, '/t'));
+					}
+					db.collection('sets', {safe:true}, function(err, collection){
+						if(err){
+							console.log("The 'sets' collection doesn't exist. Creating with sample data...");
+							populateSets();
+						}
+						else{
+							console.log("sets collection: " + JSON.stringify(collection, null, '/t'));
+						}
+					})
+		        });
 			}
-        });
-		db.collection('sets', {safe:true}, function(err, collection){
-			if(err){
-				console.log("The 'sets' collection doesn't exist. Creating with sample data...");
-				populateSets();
-			}
-			else{
-				console.log("sets collection: " + JSON.stringify(collection, null, '/t'));
-			}
-		})
+		});
+
     }
 	else{console.log(err)};
 });
