@@ -13,8 +13,8 @@ db = new Db(mongoDbName, server, {safe: true});
 
 db.open(function(err, db) {
     if(!err) {
-		var username = process.env.MONGO_USER || "";
-		var password = process.env.MONGO_PASS || "";
+		var username = process.env.MONGO_USER || "issues";
+		var password = process.env.MONGO_PASS || "issues";
 		console.log('logging in with user: ' + username + ' and password ' + password);
 		db.authenticate(username, password, function(err, result){
 			if(err){
