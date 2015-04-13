@@ -5,7 +5,7 @@
 <div class="content">
 	<div class="content-padded">
 		<p>This issue has been voted on by <strong>{{data.totalVoterCount}}</strong> people</p>
-		<p>Its current score is <strong>{{data.totalScore}}!</strong> (<a href="#">what does this mean?</a>)</p>
+		<p>Its current score is <strong>{{data.totalScore}}!</strong> (<a href="#totalScoreExplanation">what does this mean?</a>)</p>
 		<h2>I am:</h2>
 		<div class="card">
 			<ul class="table-view">
@@ -16,13 +16,30 @@
 				<li class="table-view-cell vote" id="vote-1">Moderately against <span class="media-object pull-right icon"></span><span class="badge">-1</span></li>
 				<li class="table-view-cell vote" id="vote-2">Strongly against <span class="media-object pull-right icon"></span><span class="badge">-2</span></li>
 				<li class="table-view-cell vote" id="vote-3">Very strongly against <span class="media-object pull-right icon"></span><span class="badge">-3</span></li>
+			</ul>
+		</div>
 	</div>
 </div>
-	<script>
+<div id="totalScoreExplanation" class="modal">
+	<header class="bar bar-nav">
+		<a class="icon icon-close pull-right" href="#totalScoreExplanation"></a>
+		<h1 class="title">PowerVote</a>
+	</header>
+	<div class="content">
+		<div class="content-padded">
+			<h1>Total Scores</h1>
+			<p><strong>The total score shows how important an issue is to the population.</strong></p>
+			<p>Everyone gets <strong>{{#if data.votesPerUser}}{{data.votesPerUser}}{{else}}20{{/if}}</strong> votes.</p>
+			<p>You can spend as many votes on an issue as you like - but once you run out, that's it!</p>
+			<p>The <strong>Total Score</strong> is simply the number of votes cast for that issue.</p>
+		</div>
+	</div>
+</div>
+<script>
   
   $('li.vote').click(function(){
     var payload = {issue: {{data.id}}, score:$(this).attr('id')};
 	console.log(payload);
   	socket.emit('vote', payload);
   });
-	</script>
+</script>

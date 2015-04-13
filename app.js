@@ -1,4 +1,5 @@
 var express = require('express');
+var stormpath = require('express-stormpath');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
@@ -9,6 +10,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var issues = require('./routes/issues');
+var config = require('./config.dev.js');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,6 +23,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(stormpath.init(app, {
+	apiKeyId: process.env.STORMPATH_APIKEY_ID || config.stormPath.apiKeyId,
+	apiKeySecret: process.env.STORMPATH_APIKEY_SECRET || config.stormPath.apiKeySecret,
+	application: 'https://api.stormpath.com/v1/applications/6JZ0WJnvk2y6SU7HE485x3',
+	secretKey: 'ca4afc77-d67c-4698-b7e7-3003a0b59f78',
+}));
 
 io.on('connection', function(socket){
 	socket.on('vote', function(msg){

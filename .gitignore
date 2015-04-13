@@ -2,3 +2,4 @@
 /.idea
 Procfile
 .gitignore
+config.dev.js

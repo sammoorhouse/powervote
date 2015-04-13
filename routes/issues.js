@@ -1,20 +1,21 @@
 var mongo = require('mongodb');
+var config = require('../config.dev.js');
 
 var Server = mongo.Server,
     Db = mongo.Db,
     BSON = mongo.BSONPure;
 
-	var mongoHost = process.env.MONGO_HOST || 'localhost';
-	var mongoPort = process.env.MONGO_PORT || 27017;
-	var mongoDbName = process.env.MONGO_DBNAME || 'issuesdb';
+	var mongoHost = process.env.MONGO_HOST || config.mongo.host;
+	var mongoPort = process.env.MONGO_PORT || config.mongo.port;
+	var mongoDbName = process.env.MONGO_DBNAME || config.mongo.dbname;
 
 var server = new Server(mongoHost, mongoPort, {auto_reconnect: true});
 db = new Db(mongoDbName, server, {safe: true});
 
 db.open(function(err, db) {
     if(!err) {
-		var username = process.env.MONGO_USER || "issues";
-		var password = process.env.MONGO_PASS || "issues";
+		var username = process.env.MONGO_USER || config.mongo.user;
+		var password = process.env.MONGO_PASS || config.mongo.pass;
 		console.log('logging in with user: ' + username + ' and password ' + password);
 		db.authenticate(username, password, function(err, result){
 			if(err){
