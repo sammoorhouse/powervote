@@ -26,8 +26,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(stormpath.init(app, {
 	apiKeyId: process.env.STORMPATH_APIKEY_ID || config.stormPath.apiKeyId,
 	apiKeySecret: process.env.STORMPATH_APIKEY_SECRET || config.stormPath.apiKeySecret,
-	application: 'https://api.stormpath.com/v1/applications/6JZ0WJnvk2y6SU7HE485x3',
+	application: process.env.STORMPATH_APP_URL || config.stormPath.appUrl,
 	secretKey: 'ca4afc77-d67c-4698-b7e7-3003a0b59f78',
+	enableFacebook: true,
+	social: {
+		facebook: {
+			appId: process.env.FB_APP_ID || config.facebook.appId,
+			appSecret: process.env.FB_APP_SECRET || config.facebook.appSecret,
+		}
+	}
 }));
 
 io.on('connection', function(socket){
@@ -39,13 +46,13 @@ io.on('connection', function(socket){
 //app.use('/', routes);
 
 /* GET home page. */
-app.get('/', function(req, res, next) {
+app.get('/', stormpath.loginRequired, function(req, res, next) {
 	issues.getAll(function(items){
 		res.render('issues', { title: 'Issues', data: items })
 	});
 });
-app.get('/blast', issues.blast);
-app.get('/issue/:id', function(req,res,next){
+app.get('/blast', stormpath.loginRequired, issues.blast);
+app.get('/issue/:id', stormpath.loginRequired, function(req,res,next){
 	var id = req.params.id;
 	 issues.getById(id, function(payload){
 		 res.render('issue', {data: payload});
