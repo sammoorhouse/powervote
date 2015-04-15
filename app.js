@@ -36,6 +36,8 @@ app.use(stormpath.init(app, {
 			appId: process.env.FB_APP_ID || config.facebook.appId,
 			appSecret: process.env.FB_APP_SECRET || config.facebook.appSecret,
 		}
+		//also google:
+		//http://docs.stormpath.com/nodejs/express/product.html#use-facebook-login
 	}
 }));
 
@@ -55,6 +57,7 @@ app.get('/', stormpath.loginRequired, function(req, res, next) {
 });
 app.get('/blast', stormpath.loginRequired, issues.blast);
 app.get('/issue/:id', stormpath.loginRequired, function(req,res,next){
+	console.log('user: ' + req.user);
 	var id = req.params.id;
 	 issues.getById(id, function(payload){
 		 res.render('issue', {data: payload});
