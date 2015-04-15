@@ -57,7 +57,7 @@ app.get('/', stormpath.loginRequired, function(req, res, next) {
 });
 app.get('/blast', stormpath.loginRequired, issues.blast);
 app.get('/issue/:id', stormpath.loginRequired, function(req,res,next){
-	console.log('user: ' + req.user);
+	console.log('user: ' + req.user); 
 	var id = req.params.id;
 	 issues.getById(id, function(payload){
 		 res.render('issue', {data: payload});
