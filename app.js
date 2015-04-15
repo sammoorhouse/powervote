@@ -11,7 +11,7 @@ var bodyParser = require('body-parser');
 
 var issues = require('./routes/issues');
 
-var envName = process.env.ENV_NAME || 'dev';
+var envName = process.env.ENV_NAME || 'prod';
 var config = require('./config.' + envName + '.js');
 
 // view engine setup
