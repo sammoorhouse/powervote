@@ -1,6 +1,6 @@
 var mongo = require('mongodb');
 
-var envName = process.env.ENV_NAME || 'dev';
+var envName = process.env.ENV_NAME || 'prod';
 var config = require('../config.' + envName + '.js');
 
 var Server = mongo.Server,
