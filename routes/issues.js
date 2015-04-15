@@ -1,5 +1,7 @@
 var mongo = require('mongodb');
-var config = require('../config.dev.js');
+
+var envName = process.env.ENV_NAME || 'dev';
+var config = require('../config.' + envName + '.js');
 
 var Server = mongo.Server,
     Db = mongo.Db,

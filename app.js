@@ -9,9 +9,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var envName = process.env.ENV_NAME || 'dev';
-
 var issues = require('./routes/issues');
+
+var envName = process.env.ENV_NAME || 'dev';
 var config = require('./config.' + envName + '.js');
 
 // view engine setup
