@@ -55,14 +55,18 @@ app.get('/', stormpath.loginRequired, function(req, res, next) {
 		res.render('issues', { title: 'Issues', data: items })
 	});
 });
+
 app.get('/blast', stormpath.loginRequired, issues.blast);
+
 app.get('/issue/:id', stormpath.loginRequired, function(req,res,next){
-	var user = DumpObjectIndented(req.user, 2);
-	console.log('user: ' + user); 
 	var id = req.params.id;
 	 issues.getById(id, function(payload){
 		 res.render('issue', {data: payload});
 	 });
+});
+
+app.get('/profile', stormpath.loginRequired, function(req, res, next){
+	res.render('profile', {data: req.user});
 });
 
 // catch 404 and forward to error handler
