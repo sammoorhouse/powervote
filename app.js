@@ -57,7 +57,8 @@ app.get('/', stormpath.loginRequired, function(req, res, next) {
 });
 app.get('/blast', stormpath.loginRequired, issues.blast);
 app.get('/issue/:id', stormpath.loginRequired, function(req,res,next){
-	console.log('user: ' + req.user); 
+	var user = DumpObjectIndented(req.user, 2);
+	console.log('user: ' + user); 
 	var id = req.params.id;
 	 issues.getById(id, function(payload){
 		 res.render('issue', {data: payload});
@@ -74,5 +75,38 @@ app.use(function(req, res, next) {
 http.listen(process.env.PORT || 3000, function(){
   console.log('listening on *:80');
 });
+
+function DumpObjectIndented(obj, indent)
+{
+  var result = "";
+  if (indent == null) indent = "";
+
+  for (var property in obj)
+  {
+    var value = obj[property];
+    if (typeof value == 'string')
+      value = "'" + value + "'";
+    else if (typeof value == 'object')
+    {
+      if (value instanceof Array)
+      {
+        // Just let JS convert the Array to a string!
+        value = "[ " + value + " ]";
+      }
+      else
+      {
+        // Recursive dump
+        // (replace "  " by "\t" or something else if you prefer)
+        var od = DumpObjectIndented(value, indent + "  ");
+        // If you like { on the same line as the key
+        //value = "{\n" + od + "\n" + indent + "}";
+        // If you prefer { and } to be aligned
+        value = "\n" + indent + "{\n" + od + "\n" + indent + "}";
+      }
+    }
+    result += indent + "'" + property + "' : " + value + ",\n";
+  }
+  return result.replace(/,\n$/, "");
+}
 
 module.exports = app;
